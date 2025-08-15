@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GitLab Badge Generator</title>
+  </head>
+  <body>
+    <script>
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap';
+      document.head.appendChild(link);
+
+      const params = new URLSearchParams(window.location.search);
+      const labelText = (params.get('label') || 'label').substring(0, 30); // limit length
+      const statusText = (params.get('status') || 'status').substring(0, 30); // limit length
+      const color = params.get('color') || 'blue';
+
+      const badge = document.createElement('span');
+      badge.style.display = 'inline-flex';
+      badge.style.alignItems = 'center';
+      badge.style.border = `3px solid ${color}`;
+      badge.style.borderRadius = '999px';
+      badge.style.fontFamily = "'Inter', sans-serif";
+      badge.style.fontSize = '12px';
+      badge.style.color = '#fff';
+      badge.style.backgroundColor = '#18171d';
+
+      const labelSpan = document.createElement('span');
+      labelSpan.style.backgroundColor = color;
+      labelSpan.style.padding = '0px 6px';
+      labelSpan.style.borderRadius = '6px 0 0 6px';
+      labelSpan.textContent = labelText;
+
+      const statusSpan = document.createElement('span');
+      statusSpan.style.padding = '0px 6px';
+      statusSpan.textContent = statusText;
+
+      badge.appendChild(labelSpan);
+      badge.appendChild(statusSpan);
+
+      document.body.appendChild(badge);
+    </script>
+  </body>
+</html>
