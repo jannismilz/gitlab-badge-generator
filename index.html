@@ -44,6 +44,14 @@
   <text x="${labelWidth + statusWidth/2 - 14}" y="${height/2 + 4}" fill="#fff" font-family="Inter,sans-serif" font-size="12" text-anchor="middle">${statusEscaped}</text>
 </svg>
 `;
+
+      document.body.innerHTML = svg;
+      document.body.style.margin = "0";
+
+const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap';
+      document.head.appendChild(link);
     </script>
     <style>
       body {
