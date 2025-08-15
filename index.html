@@ -37,11 +37,11 @@
   <rect x="0" y="0" width="${labelWidth + 2}" height="${height}" fill="#${color}" ry="${radius}" clip-path="inset(0 ${radius - 2}px 0 0)" />
   
   <!-- Status -->
-  <rect x="${labelWidth - 16}" y="0" width="${statusWidth}" height="${height}" fill="#18171d" ry="${radius}" clip-path="inset(0 0 0 ${radius}px)" stroke="#${color}" stroke-width="${strokeWidth}" />
+  <rect x="${labelWidth - 16}" y="0" width="${statusWidth + 8}" height="${height}" fill="#18171d" ry="${radius}" clip-path="inset(0 0 0 ${radius}px)" stroke="#${color}" stroke-width="${strokeWidth}" />
 
   <!-- Text -->
   <text x="${labelWidth/2 - 2}" y="${height/2 + 4}" fill="#fff" font-family="Inter,sans-serif" font-size="12" text-anchor="middle">${labelEscaped}</text>
-  <text x="${labelWidth + statusWidth/2 - 14}" y="${height/2 + 4}" fill="#fff" font-family="Inter,sans-serif" font-size="12" text-anchor="middle">${statusEscaped}</text>
+  <text x="${labelWidth + statusWidth/2 - 10}" y="${height/2 + 4}" fill="#fff" font-family="Inter,sans-serif" font-size="12" text-anchor="middle">${statusEscaped}</text>
 </svg>
 `;
 
