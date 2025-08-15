@@ -5,40 +5,45 @@
   </head>
   <body>
     <script>
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap';
-      document.head.appendChild(link);
-
       const params = new URLSearchParams(window.location.search);
-      const labelText = (params.get('label') || 'label').substring(0, 30); // limit length
-      const statusText = (params.get('status') || 'status').substring(0, 30); // limit length
-      const color = params.get('color') || 'blue';
+      const labelText = (params.get('label') || 'stage').substring(0, 30);
+      const statusText = (params.get('status') || 'status').substring(0, 30);
+      const color = params.get('color') || '598bbc';
 
-      const badge = document.createElement('span');
-      badge.style.display = 'inline-flex';
-      badge.style.alignItems = 'center';
-      badge.style.border = `3px solid #${color}`;
-      badge.style.borderRadius = '999px';
-      badge.style.fontFamily = "'Inter', sans-serif";
-      badge.style.fontSize = '12px';
-      badge.style.color = '#fff';
-      badge.style.backgroundColor = '#18171d';
+      function escapeXML(str) {
+        return str.replace(/&/g, "&amp;")
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;")
+                  .replace(/"/g, "&quot;")
+                  .replace(/'/g, "&apos;");
+      }
 
-      const labelSpan = document.createElement('span');
-      labelSpan.style.backgroundColor = `#${color}`;
-      labelSpan.style.padding = '0px 6px';
-      labelSpan.style.borderRadius = '6px 0 0 6px';
-      labelSpan.textContent = labelText;
+      const labelEscaped = escapeXML(labelText);
+      const statusEscaped = escapeXML(statusText);
 
-      const statusSpan = document.createElement('span');
-      statusSpan.style.padding = '0px 6px';
-      statusSpan.textContent = statusText;
+      // Approximate text width for SVG
+      const paddingX = 6;
+      const charWidth = 8;
+      const labelWidth = labelEscaped.length * charWidth + paddingX * 2;
+      const statusWidth = statusEscaped.length * charWidth + paddingX * 2;
+      const height = 20;
+      const totalWidth = labelWidth + statusWidth;
+      const radius = 10;
+      const strokeWidth = 3;
 
-      badge.appendChild(labelSpan);
-      badge.appendChild(statusSpan);
+      const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="${height}">
+  <!-- Label -->
+  <rect x="0" y="0" width="${labelWidth + 2}" height="${height}" fill="#${color}" ry="${radius}" clip-path="inset(0 ${radius - 2}px 0 0)" />
+  
+  <!-- Status -->
+  <rect x="${labelWidth - 16}" y="0" width="${statusWidth}" height="${height}" fill="#18171d" ry="${radius}" clip-path="inset(0 0 0 ${radius}px)" stroke="#${color}" stroke-width="${strokeWidth}" />
 
-      document.body.appendChild(badge);
+  <!-- Text -->
+  <text x="${labelWidth/2 - 2}" y="${height/2 + 4}" fill="#fff" font-family="Inter,sans-serif" font-size="12" text-anchor="middle">${labelEscaped}</text>
+  <text x="${labelWidth + statusWidth/2 - 14}" y="${height/2 + 4}" fill="#fff" font-family="Inter,sans-serif" font-size="12" text-anchor="middle">${statusEscaped}</text>
+</svg>
+`;
     </script>
     <style>
       body {
